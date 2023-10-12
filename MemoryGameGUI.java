@@ -4,178 +4,142 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-public class MemoryGameGUI {
-    private JFrame frame;
-    private JPanel cardPanel;
-    private List<Card> cards;
-    private Card firstCard;
-    private Card secondCard;
-    private int moves;
-    private Timer timer;
-    private int timePlayed;
 
-    public MemoryGameGUI(int gridSize) {
-        frame = new JFrame("Memory Game");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+public class MemoryGameGUI extends JFrame {
+        private ArrayList<String> imagePaths;
+        private ArrayList<String> cardImages;
+        private JButton[] cardButtons;
+        private int numberOfMatches;
+        private int firstCardIndex;
+        private int secondCardIndex;
+        private int moves;
+        private Timer timer;
+        private int gridSize;
+        
+        public MemoryGameGUI(int gridSize) {
+        this.gridSize = gridSize;
+        setTitle("Picture Memory Game");
+        setSize(4000, 4000);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        cardPanel = new JPanel(new GridLayout(gridSize / 4, gridSize / 4));
-        frame.add(cardPanel, BorderLayout.CENTER);
+        imagePaths = new ArrayList<>();
+        cardImages = new ArrayList<>();
+        numberOfMatches = 0;
+        firstCardIndex = -1;
+        secondCardIndex = -1;
+        moves = 0;
 
-        cards = new ArrayList<>();
-        for (int i = 1; i <= gridSize / 2; i++) {
-            cards.add(new Card(i, "flower" + i + "Rose.png"));
-            cards.add(new Card(i, "flower" + i + "Lily.png"));
-            cards.add(new Card(i, "flower" + i + "Tulips.png"));
-            cards.add(new Card(i, "flower" + i + "Iris.png"));
-            cards.add(new Card(i, "flower" + i + "Daisy.png"));
-            cards.add(new Card(i, "flower" + i + "Orchid.png"));
-            cards.add(new Card(i, "flower" + i + "Sunflower.png"));
-            cards.add(new Card(i, "flower" + i + "Carnation.png"));
-//
-        }
-        Collections.shuffle(cards);
+        initializeImagePaths();
+        initializeCardImages();
 
-        for (Card card : cards) {
-            JButton button = new JButton(new ImageIcon(card.getImagePath()));
-            button.addActionListener(new CardClickListener(card));
-            cardPanel.add(button);
-        }
+        JPanel cardPanel = new JPanel(new GridLayout(this.gridSize / 6, 6));
+        cardButtons = new JButton[this.gridSize];
 
-        frame.pack();
-        frame.setVisible(true);
-    }
-
-    public int getTimePlayed() {
-        return timePlayed;
-    }
-
-    public void setTimePlayed(int timePlayed) {
-        this.timePlayed = timePlayed;
-    }
-
-    private class Card {
-        private final int value;
-        private final String imagePath;
-        private boolean flipped;
-        private boolean matched;
-
-        public Card(int value, String imagePath) {
-            this.value = value;
-            this.imagePath = imagePath;
-            this.flipped = false;
-            this.matched = false;
-        }
-
-        public int getValue() {
-            return value;
-        }
-
-        public String getImagePath() {
-            return imagePath;
-        }
-
-        public boolean isFlipped() {
-            return flipped;
-        }
-
-        public void setFlipped(boolean flipped) {
-            this.flipped = flipped;
-        }
-
-        public boolean isMatched() {
-            return matched;
-        }
-
-        public void setMatched(boolean matched) {
-            this.matched = matched;
-        }
-    }
-
-    private class CardClickListener implements ActionListener {
-        private final Card card;
-
-        public CardClickListener(Card card) {
-            this.card = card;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if (!card.isFlipped() && !card.isMatched()) {
-                flipCard(card);
-                if (firstCard == null) {
-                    firstCard = card;
-                } else {
-                    secondCard = card;
-                    checkMatch();
-                }
-            }
-        }
-
-        private void flipCard(Card card) {
-            card.setFlipped(true);
-            // Update GUI to show the flipped card
-        }
-
-        private void checkMatch() {
-            if (firstCard.getValue() == secondCard.getValue()) {
-                firstCard.setMatched(true);
-                secondCard.setMatched(true);
-                // Update GUI to show the matched cards
-                resetCards();
-                checkGameStatus();
-            } else {
-                timer = new Timer();
-                timer.schedule(new TimerTask() {
+            for (int i = 0; i < cardButtons.length; i++) {
+                final int index = i;
+                cardButtons[i] = new JButton();
+                cardButtons[i].setIcon(new ImageIcon("cardsback.png"));
+                cardButtons[i].addActionListener(new ActionListener() {
                     @Override
-                    public void run() {
-                        flipCard(firstCard);
-                        flipCard(secondCard);
-                        resetCards();
+                    public void actionPerformed(ActionEvent e) {
+                        handleCardClick(index);
                     }
-                }, 5000);
-            }
+            });
+            cardPanel.add(cardButtons[i]);
+        }
+
+        add(cardPanel);
+    }
+
+
+    private void initializeImagePaths() {
+        imagePaths.add("Rose.png");
+        imagePaths.add("Lily.png");
+        imagePaths.add("Tulips.png");
+        imagePaths.add("Iris.png");
+        imagePaths.add("Daisy.png");
+        imagePaths.add("Orchid.png");
+        imagePaths.add("Sunflower.png");
+        imagePaths.add("Carnation.png");
+
+        // Shuffle the image paths
+        Collections.shuffle(imagePaths);
+        Collections.shuffle(cardImages);
+    }
+    private void initializeCardImages() {
+        // Initialize cardImages based on the grid size
+        for (int i = 0; i < gridSize; i++) {
+            cardImages.add("");
+        }
+        Collections.shuffle(cardImages);
+    }
+
+
+    private void handleCardClick(int index) {
+        if (cardButtons[index].getIcon() == null) {
+            return; // Already matched card, do nothing
+        }
+
+        if (firstCardIndex == -1) {
+            firstCardIndex = index;
+            cardButtons[firstCardIndex].setIcon(new ImageIcon(imagePaths.get(index)));
+        } else {
+            secondCardIndex = index;
+            cardButtons[secondCardIndex].setIcon(new ImageIcon(imagePaths.get(index)));
+
+            // Increment the moves
             moves++;
-            // Update GUI to show the number of moves
-        }
 
-        private void resetCards() {
-            firstCard = null;
-            secondCard = null;
-            if (timer != null) {
-                timer.cancel();
-                timer = null;
-            }
-        }
-
-        private void checkGameStatus() {
-            boolean allMatched = true;
-            for (Card card : cards) {
-                if (!card.isMatched()) {
-                    allMatched = false;
-                    break;
+            timer = new Timer(5000, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Hide the cards after 5 seconds
+                    cardButtons[firstCardIndex].setIcon(new ImageIcon("Cardback.png"));
+                    cardButtons[secondCardIndex].setIcon(new ImageIcon("Cardback.png"));
+                    firstCardIndex = -1;
+                    secondCardIndex = -1;
                 }
-            }
-            if (allMatched) {
-                JOptionPane.showMessageDialog(frame, "Congratulations! You have completed the game in " + moves + " moves.");
-                resetGame();
+            });
+            timer.setRepeats(false);
+            timer.start();
+
+            if (imagePaths.get(firstCardIndex).equals(imagePaths.get(secondCardIndex))) {
+                cardButtons[firstCardIndex].setIcon(new ImageIcon("check.png"));
+                cardButtons[secondCardIndex].setIcon(new ImageIcon("check.png"));
+                cardImages.set(firstCardIndex, null);
+                cardImages.set(secondCardIndex, null);
+                numberOfMatches++;
+
+                if (numberOfMatches == gridSize / 2) {
+                    JOptionPane.showMessageDialog(null, "Congratulations! You've won in " + moves + " moves!");
+                    resetGame();
+                }
             }
         }
     }
-
     private void resetGame() {
-        frame.dispose();
-        int gridSize = Integer.parseInt(JOptionPane.showInputDialog("Enter the size of the GUI matrix (12 or 24):"));
-        SwingUtilities.invokeLater(() -> new MemoryGameGUI(gridSize));
+        // Reset the game by creating a new MemoryGame instance
+        // You can also provide an option for the user to start a new game
+        new MemoryGameGUI(gridSize).setVisible(true);
+        dispose();
     }
 
     public static void main(String[] args) {
-        int gridSize = Integer.parseInt(JOptionPane.showInputDialog("Enter the size of the GUI matrix (12 or 24):"));
-        SwingUtilities.invokeLater(() -> new MemoryGameGUI(gridSize));
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                // Prompt the user for the grid size (12 cards or 24 cards)
+                String gridSizeInput = JOptionPane.showInputDialog("Enter the grid size (12 or 24):");
+                int gridSize = Integer.parseInt(gridSizeInput);
+
+                if (gridSize != 12 && gridSize != 24) {
+                    JOptionPane.showMessageDialog(null, "Invalid grid size. Please enter 12 or 24.");
+                    return;
+                }
+
+                new MemoryGameGUI(gridSize).setVisible(true);
+            }
+        });
     }
-
-
 }
 
