@@ -34,7 +34,7 @@ public class MemoryGameGUI {
             cards.add(new Card(i, "flower" + i + "Orchid.png"));
             cards.add(new Card(i, "flower" + i + "Sunflower.png"));
             cards.add(new Card(i, "flower" + i + "Carnation.png"));
-
+//
         }
         Collections.shuffle(cards);
 
