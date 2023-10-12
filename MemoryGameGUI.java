@@ -19,7 +19,7 @@ public class MemoryGameGUI extends JFrame {
         public MemoryGameGUI(int gridSize) {
         this.gridSize = gridSize;
         setTitle("Picture Memory Game");
-        setSize(4000, 4000);
+        setSize(400, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         imagePaths = new ArrayList<>();
@@ -32,13 +32,13 @@ public class MemoryGameGUI extends JFrame {
         initializeImagePaths();
         initializeCardImages();
 
-        JPanel cardPanel = new JPanel(new GridLayout(this.gridSize / 6, 6));
+        JPanel cardPanel = new JPanel(new GridLayout(this.gridSize / 4, 4));
         cardButtons = new JButton[this.gridSize];
 
             for (int i = 0; i < cardButtons.length; i++) {
                 final int index = i;
-                cardButtons[i] = new JButton();
-                cardButtons[i].setIcon(new ImageIcon("cardsback.png"));
+                cardButtons = new JButton[16];
+                cardButtons[i].setIcon(new ImageIcon("Cardback.png"));
                 cardButtons[i].addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
