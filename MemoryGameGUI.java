@@ -21,18 +21,18 @@ public class MemoryGameGUI {
         frame = new JFrame("Memory Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        cardPanel = new JPanel(new GridLayout(gridSize / 4, gridSize / 6));
+        cardPanel = new JPanel(new GridLayout(gridSize / 4, gridSize / 4));
         frame.add(cardPanel, BorderLayout.CENTER);
 
         cards = new ArrayList<>();
         for (int i = 1; i <= gridSize / 2; i++) {
-            cards.add(new Card(i, "flower" + i + "Rose"));
-            cards.add(new Card(i, "flower" + i + "Lily"));
-            cards.add(new Card(i, "flower" + i + "Tulips"));
-            cards.add(new Card(i, "flower" + i + "Iris"));
-            cards.add(new Card(i, "flower" + i + "Daisy"));
-            cards.add(new Card(i, "flower" + i + "Orchid"));
-            cards.add(new Card(i, "flower" + i + "Sun Flower"));
+            cards.add(new Card(i, "flower" + i + "Rose.png"));
+            cards.add(new Card(i, "flower" + i + "Lily.png"));
+            cards.add(new Card(i, "flower" + i + "Tulips.png"));
+            cards.add(new Card(i, "flower" + i + "Iris.png"));
+            cards.add(new Card(i, "flower" + i + "Daisy.png"));
+            cards.add(new Card(i, "flower" + i + "Orchid.png"));
+            cards.add(new Card(i, "flower" + i + "Sun Flower.png"));
 
         }
         Collections.shuffle(cards);
