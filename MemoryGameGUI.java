@@ -26,13 +26,14 @@ public class MemoryGameGUI {
 
         cards = new ArrayList<>();
         for (int i = 1; i <= gridSize / 2; i++) {
-            cards.add(new Card(i, "flower" + i + "Rose.png"));
-            cards.add(new Card(i, "flower" + i + "Lily.png"));
-            cards.add(new Card(i, "flower" + i + "Tulips.png"));
-            cards.add(new Card(i, "flower" + i + "Iris.png"));
-            cards.add(new Card(i, "flower" + i + "Daisy.png"));
-            cards.add(new Card(i, "flower" + i + "Orchid.png"));
-            cards.add(new Card(i, "flower" + i + "Sun Flower.png"));
+            cards.add(new Card(i, "flower" + i + "rose.png"));
+            cards.add(new Card(i, "flower" + i + "lily.png"));
+            cards.add(new Card(i, "flower" + i + "tulips.png"));
+            cards.add(new Card(i, "flower" + i + "iris.png"));
+            cards.add(new Card(i, "flower" + i + "daisy.png"));
+            cards.add(new Card(i, "flower" + i + "orchid.png"));
+            cards.add(new Card(i, "flower" + i + "sunflower.png"));
+            cards.add(new Card(i, "flower" + i + "carnation.png"));
 
         }
         Collections.shuffle(cards);
