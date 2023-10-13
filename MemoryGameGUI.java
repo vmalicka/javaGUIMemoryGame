@@ -32,7 +32,7 @@ public class MemoryGameGUI extends JFrame {
         initializeImagePaths();
         initializeCardImages();
 
-        JPanel cardPanel = new JPanel(new GridLayout(this.gridSize / 4, 6));
+        JPanel cardPanel = new JPanel(new GridLayout(4, 4));
         cardButtons = new JButton[16];
 
         for (int i = 0; i < cardButtons.length; i++) {
@@ -76,7 +76,7 @@ public class MemoryGameGUI extends JFrame {
     private void initializeCardImages() {
 
         // Initialize cardImages based on the grid size
-        for (int i = 0; i < gridSize; i++) {
+        for (int i = 0; i < 4; i++) {
             cardImages.add("");
         }
         Collections.shuffle(cardImages);
