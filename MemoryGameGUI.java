@@ -67,6 +67,7 @@ public class MemoryGameGUI extends JFrame {
         Collections.shuffle(cardImages);
     }
     private void initializeCardImages() {
+
         // Initialize cardImages based on the grid size
         for (int i = 0; i < gridSize; i++) {
             cardImages.add("");
