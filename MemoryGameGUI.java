@@ -117,7 +117,7 @@ public class MemoryGameGUI extends JFrame {
                 numberOfMatches++;
 
                 if (numberOfMatches == gridSize / 2) {
-                    JOptionPane.showMessageDialog(null, "Congratulations! You've won in " + moves + " moves!");
+                    JOptionPane.showMessageDialog(null, "Congratulations!" + moves + "Goodbye");
                     resetGame();
                 }
             }
