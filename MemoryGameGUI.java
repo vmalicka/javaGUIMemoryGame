@@ -75,7 +75,7 @@ public class MemoryGameGUI extends JFrame {
     }
     private void initializeCardImages() {
 
-        // Initialize cardImages based on the grid size
+        // Initialize cardImages
         for (int i = 0; i < 4; i++) {
             cardImages.add("");
         }
