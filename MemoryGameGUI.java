@@ -51,7 +51,6 @@ public class MemoryGameGUI extends JFrame {
         add(cardPanel);
     }
 
-
     private void initializeImagePaths() {
         imagePaths.add("Rose.png");
         imagePaths.add("Lily.png");
@@ -70,8 +69,7 @@ public class MemoryGameGUI extends JFrame {
         imagePaths.add("Magnolia.png");
         imagePaths.add("Camellia.png");
 
-        // Shuffle the image paths
-
+        // Shuffles image paths
         Collections.shuffle(imagePaths);
         Collections.shuffle(cardImages);
     }
@@ -83,7 +81,6 @@ public class MemoryGameGUI extends JFrame {
         }
         Collections.shuffle(cardImages);
     }
-
 
     private void handleCardClick(int index) {
         if (cardButtons[index].getIcon() == null) {
