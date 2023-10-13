@@ -81,7 +81,6 @@ public class MemoryGameGUI extends JFrame {
         }
         Collections.shuffle(cardImages);
     }
-
     private void handleCardClick(int index) {
         if (cardButtons[index].getIcon() == null) {
             return; // Already matched card, do nothing
