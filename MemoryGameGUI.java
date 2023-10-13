@@ -6,17 +6,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class MemoryGameGUI extends JFrame {
-        private ArrayList<String> imagePaths;
-        private ArrayList<String> cardImages;
-        private JButton[] cardButtons;
-        private int numberOfMatches;
-        private int firstCardIndex;
-        private int secondCardIndex;
-        private int moves;
-        private Timer timer;
-        private int gridSize;
-        
-        public MemoryGameGUI(int gridSize) {
+    private ArrayList<String> imagePaths;
+    private ArrayList<String> cardImages;
+    private JButton[] cardButtons;
+    private int numberOfMatches;
+    private int firstCardIndex;
+    private int secondCardIndex;
+    private int moves;
+    private Timer timer;
+    private int gridSize;
+
+    public MemoryGameGUI(int gridSize) {
         this.gridSize = gridSize;
         setTitle("Picture Memory Game");
         setSize(400, 400);
@@ -33,17 +33,16 @@ public class MemoryGameGUI extends JFrame {
         initializeCardImages();
 
         JPanel cardPanel = new JPanel(new GridLayout(this.gridSize / 4, 4));
-        cardButtons = new JButton[36];
+        cardButtons = new JButton[16];
 
-            for (int i = 0; i < cardButtons.length; i++) {
-                final int index = i;
-                cardButtons[i] = new JButton();
-                cardButtons[i].setIcon(new ImageIcon("Cardback.png"));
-                cardButtons[i].addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        handleCardClick(index);
-                    }
+        for (int i = 0; i < cardButtons.length; i++) {
+            final int index = i;
+
+            cardButtons[i] = new JButton();
+            cardButtons[i].setIcon(new ImageIcon("Cardback.png"));
+            cardButtons[i].addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) { handleCardClick(index); }
             });
             cardPanel.add(cardButtons[i]);
         }
@@ -54,22 +53,21 @@ public class MemoryGameGUI extends JFrame {
     private void initializeImagePaths() {
         imagePaths.add("Rose.png");
         imagePaths.add("Lily.png");
-        imagePaths.add("Tulips.png");
+        imagePaths.add("Marigold.png");
         imagePaths.add("Iris.png");
         imagePaths.add("Daisy.png");
         imagePaths.add("Orchid.png");
         imagePaths.add("Sunflower.png");
         imagePaths.add("Carnation.png");
-        imagePaths.add("Lotus.png");
-        imagePaths.add("Lavender.png");
-        imagePaths.add("Lilac.png");
-        imagePaths.add("Dahlia.png");
-        imagePaths.add("Poppy.png");
-        imagePaths.add("Petunia.png");
-        imagePaths.add("Magnolia.png");
-        imagePaths.add("Camellia.png");
-        imagePaths.add("Daffodil.png");
+        imagePaths.add("Rose.png");
+        imagePaths.add("Lily.png");
         imagePaths.add("Marigold.png");
+        imagePaths.add("Iris.png");
+        imagePaths.add("Daisy.png");
+        imagePaths.add("Orchid.png");
+        imagePaths.add("Sunflower.png");
+        imagePaths.add("Carnation.png");
+
 
         // Shuffles image paths
         Collections.shuffle(imagePaths);
@@ -118,7 +116,7 @@ public class MemoryGameGUI extends JFrame {
                 cardImages.set(secondCardIndex, null);
                 numberOfMatches++;
 
-                if (numberOfMatches == gridSize / 4) {
+                if (numberOfMatches == gridSize / 2) {
                     JOptionPane.showMessageDialog(null, "Congratulations! You've won in " + moves + " moves!");
                     resetGame();
                 }
@@ -131,6 +129,7 @@ public class MemoryGameGUI extends JFrame {
         new MemoryGameGUI(gridSize).setVisible(true);
         dispose();
     }
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
