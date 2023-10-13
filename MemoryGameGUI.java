@@ -61,8 +61,17 @@ public class MemoryGameGUI extends JFrame {
         imagePaths.add("Orchid.png");
         imagePaths.add("Sunflower.png");
         imagePaths.add("Carnation.png");
+        imagePaths.add("Lotus.png");
+        imagePaths.add("Lavender.png");
+        imagePaths.add("Lilac.png");
+        imagePaths.add("Dahlia.png");
+        imagePaths.add("Poppy.png");
+        imagePaths.add("Petunia.png");
+        imagePaths.add("Magnolia.png");
+        imagePaths.add("Camellia.png");
 
         // Shuffle the image paths
+
         Collections.shuffle(imagePaths);
         Collections.shuffle(cardImages);
     }
@@ -105,8 +114,8 @@ public class MemoryGameGUI extends JFrame {
             timer.start();
 
             if (imagePaths.get(firstCardIndex).equals(imagePaths.get(secondCardIndex))) {
-                cardButtons[firstCardIndex].setIcon(new ImageIcon("check.png"));
-                cardButtons[secondCardIndex].setIcon(new ImageIcon("check.png"));
+                cardButtons[firstCardIndex].setIcon(new ImageIcon("Smile.png"));
+                cardButtons[secondCardIndex].setIcon(new ImageIcon("Smile.png"));
                 cardImages.set(firstCardIndex, null);
                 cardImages.set(secondCardIndex, null);
                 numberOfMatches++;
