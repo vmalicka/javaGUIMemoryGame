@@ -33,7 +33,7 @@ public class MemoryGameGUI extends JFrame {
         initializeCardImages();
 
         JPanel cardPanel = new JPanel(new GridLayout(this.gridSize / 4, 4));
-        cardButtons = new JButton[18];
+        cardButtons = new JButton[36];
 
             for (int i = 0; i < cardButtons.length; i++) {
                 final int index = i;
