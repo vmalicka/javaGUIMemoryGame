@@ -32,7 +32,7 @@ public class MemoryGameGUI extends JFrame {
         initializeImagePaths();
         initializeCardImages();
 
-        JPanel cardPanel = new JPanel(new GridLayout(this.gridSize / 6, 6));
+        JPanel cardPanel = new JPanel(new GridLayout(this.gridSize / 4, 4));
         cardButtons = new JButton[this.gridSize];
 
             for (int i = 0; i < cardButtons.length; i++) {
@@ -116,7 +116,7 @@ public class MemoryGameGUI extends JFrame {
                 cardImages.set(secondCardIndex, null);
                 numberOfMatches++;
 
-                if (numberOfMatches == gridSize / 2) {
+                if (numberOfMatches == gridSize / 4) {
                     JOptionPane.showMessageDialog(null, "Congratulations! You've won in " + moves + " moves!");
                     resetGame();
                 }
