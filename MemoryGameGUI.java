@@ -32,7 +32,7 @@ public class MemoryGameGUI extends JFrame {
         initializeImagePaths();
         initializeCardImages();
 
-        JPanel cardPanel = new JPanel(new GridLayout(this.gridSize / 4, 4));
+        JPanel cardPanel = new JPanel(new GridLayout(this.gridSize / 4, 6));
         cardButtons = new JButton[16];
 
         for (int i = 0; i < cardButtons.length; i++) {
@@ -125,7 +125,6 @@ public class MemoryGameGUI extends JFrame {
     }
     private void resetGame() {
         // Reset the game by creating a new MemoryGame instance
-        // You can also provide an option for the user to start a new game
         new MemoryGameGUI(gridSize).setVisible(true);
         dispose();
     }
