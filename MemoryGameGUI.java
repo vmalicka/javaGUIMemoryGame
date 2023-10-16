@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 
+
 public class MemoryGameGUI extends JFrame {
     private ArrayList<String> imagePaths;
     private ArrayList<String> cardImages;
@@ -16,11 +17,13 @@ public class MemoryGameGUI extends JFrame {
     private Timer timer;
     private int gridSize;
 
+
     public MemoryGameGUI(int gridSize) {
         this.gridSize = gridSize;
         setTitle("Picture Memory Game");
         setSize(400, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 
         imagePaths = new ArrayList<>();
         cardImages = new ArrayList<>();
@@ -29,14 +32,18 @@ public class MemoryGameGUI extends JFrame {
         secondCardIndex = -1;
         moves = 0;
 
+
         initializeImagePaths();
         initializeCardImages();
 
-        JPanel cardPanel = new JPanel(new GridLayout(4, 4));
-        cardButtons = new JButton[16];
+
+        JPanel cardPanel = new JPanel(new GridLayout(6, 6));
+        cardButtons = new JButton[12];
+
 
         for (int i = 0; i < cardButtons.length; i++) {
             final int index = i;
+
 
             cardButtons[i] = new JButton();
             cardButtons[i].setIcon(new ImageIcon("Cardback.png"));
@@ -47,26 +54,27 @@ public class MemoryGameGUI extends JFrame {
             cardPanel.add(cardButtons[i]);
         }
 
+
         add(cardPanel);
     }
+
 
     private void initializeImagePaths() {
         imagePaths.add("Rose.png");
         imagePaths.add("Lily.png");
-        imagePaths.add("Marigold.png");
-        imagePaths.add("Iris.png");
         imagePaths.add("Daisy.png");
         imagePaths.add("Orchid.png");
         imagePaths.add("Sunflower.png");
         imagePaths.add("Carnation.png");
+
         imagePaths.add("Rose.png");
         imagePaths.add("Lily.png");
-        imagePaths.add("Marigold.png");
-        imagePaths.add("Iris.png");
         imagePaths.add("Daisy.png");
         imagePaths.add("Orchid.png");
         imagePaths.add("Sunflower.png");
         imagePaths.add("Carnation.png");
+
+
 
 
         // Shuffles image paths
@@ -74,6 +82,7 @@ public class MemoryGameGUI extends JFrame {
         Collections.shuffle(cardImages);
     }
     private void initializeCardImages() {
+
 
         // Initialize cardImages
         for (int i = 0; i < gridSize; i++) {
@@ -86,6 +95,7 @@ public class MemoryGameGUI extends JFrame {
             return; // Already matched card, do nothing
         }
 
+
         if (firstCardIndex == -1) {
             firstCardIndex = index;
             cardButtons[firstCardIndex].setIcon(new ImageIcon(imagePaths.get(index)));
@@ -93,8 +103,10 @@ public class MemoryGameGUI extends JFrame {
             secondCardIndex = index;
             cardButtons[secondCardIndex].setIcon(new ImageIcon(imagePaths.get(index)));
 
+
             // Increment the moves
             moves++;
+
 
             timer = new Timer(5000, new ActionListener() {
                 @Override
@@ -109,12 +121,14 @@ public class MemoryGameGUI extends JFrame {
             timer.setRepeats(false);
             timer.start();
 
+
             if (imagePaths.get(firstCardIndex).equals(imagePaths.get(secondCardIndex))) {
                 cardButtons[firstCardIndex].setIcon(new ImageIcon("Smile.png"));
                 cardButtons[secondCardIndex].setIcon(new ImageIcon("Smile.png"));
                 cardImages.set(firstCardIndex, null);
                 cardImages.set(secondCardIndex, null);
                 numberOfMatches++;
+
 
                 if (numberOfMatches == gridSize / 2) {
                     JOptionPane.showMessageDialog(null, "Congratulations!" + moves + "Goodbye");
@@ -130,6 +144,8 @@ public class MemoryGameGUI extends JFrame {
     }
 
 
+
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -138,10 +154,12 @@ public class MemoryGameGUI extends JFrame {
                 String gridSizeInput = JOptionPane.showInputDialog("Enter the grid size (12 or 24):");
                 int gridSize = Integer.parseInt(gridSizeInput);
 
+
                 if (gridSize != 12 && gridSize != 24) {
                     JOptionPane.showMessageDialog(null, "Invalid grid size. Please enter 12 or 24.");
                     return;
                 }
+
 
                 new MemoryGameGUI(gridSize).setVisible(true);
             }
